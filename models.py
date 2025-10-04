@@ -1,8 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 db = SQLAlchemy()
-import json
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,7 +10,7 @@ class Game(db.Model):
     cols = db.Column(db.Integer, nullable=False)
     mines = db.Column(db.Integer, nullable=False)
     board_state = db.Column(db.Text, nullable=False)  # JSON representation
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     is_active = db.Column(db.Boolean, default=True)
 
     def serialize(self):
