@@ -1,0 +1,144 @@
+{
+  "info": {
+    "name": "Minesweeper API Collection",
+    "_postman_id": "d8a6cfa1-88e8-4b82-8a01-f2dfe92f2a23",
+    "description": "Postman collection for testing the Minesweeper Flask API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Welcome Message",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000"
+        }
+      }
+    },
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/users/register",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "users", "register"]
+        }
+      }
+    },
+    {
+      "name": "Get All Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/users/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "users"]
+        }
+      }
+    },
+    {
+      "name": "Create New Game",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"user_id\": 1,\n    \"rows\": 5,\n    \"cols\": 5,\n    \"mines\": 5\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/games/new",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "games", "new"]
+        }
+      }
+    },
+    {
+      "name": "Get All Games",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/games/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "games"]
+        }
+      }
+    },
+    {
+      "name": "Reveal Cell",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"row\": 2,\n    \"col\": 3\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/games/reveal/1",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "games", "reveal", "1"]
+        }
+      }
+    },
+    {
+      "name": "Flag Cell",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"row\": 2,\n    \"col\": 3\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/games/flag/1",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "games", "flag", "1"]
+        }
+      }
+    }
+  ]
+}
+

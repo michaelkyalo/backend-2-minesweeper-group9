@@ -1,42 +1,36 @@
 from app.db import db
+
 from datetime import datetime
 import json
 
 class Game(db.Model):
-    __tablename__ = "games"
+    __tablename__ = 'games'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    board_state = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    rows = db.Column(db.Integer, nullable=False)
+    cols = db.Column(db.Integer, nullable=False)
+    mines = db.Column(db.Integer, nullable=False)
+    board = db.Column(db.Text, nullable=False)  # store board as JSON string
+    status = db.Column(db.String(20), default='ongoing')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    status = db.Column(db.String(20), default="in_progress")
+
+    def __init__(self, user_id, rows, cols, mines, board):
+        self.user_id = user_id
+        self.rows = rows
+        self.cols = cols
+        self.mines = mines
+        self.board = json.dumps(board)
 
     def to_dict(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "board_state": json.loads(self.board_state),
-            "created_at": self.created_at,
-            "status": self.status
+            "rows": self.rows,
+            "cols": self.cols,
+            "mines": self.mines,
+            "board": json.loads(self.board),
+            "status": self.status,
+            "created_at": self.created_at.isoformat()
         }
-
-
-class MinesweeperGame:
-    def __init__(self, rows=8, cols=8, mines=10):
-        self.rows = rows
-        self.cols = cols
-        self.mines = mines
-        self.board = self._generate_board()
-
-    def _generate_board(self):
-        """Generate a simple board with random mines"""
-        import random
-        board = [[0 for _ in range(self.cols)] for _ in range(self.rows)]
-        mine_positions = random.sample(
-            [(r, c) for r in range(self.rows) for c in range(self.cols)],
-            self.mines
-        )
-        for r, c in mine_positions:
-            board[r][c] = "💣"
-        return board
 

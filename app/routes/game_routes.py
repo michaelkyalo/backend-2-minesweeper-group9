@@ -46,18 +46,13 @@ def new_game():
     return jsonify({"message": "Game created successfully", "game_id": game.id})
 
 
-# -----------------------
-# Route: Get all games
-# -----------------------
 @bp.route('/', methods=['GET'])
 def get_games():
     games = Game.query.all()
     return jsonify([game.to_dict() for game in games])
 
 
-# -----------------------
-# Route: Reveal a cell
-# -----------------------
+
 @bp.route('/reveal/<int:game_id>', methods=['POST'])
 def reveal_cell(game_id):
     data = request.get_json()
@@ -68,7 +63,7 @@ def reveal_cell(game_id):
     if not game:
         return jsonify({"error": "Game not found"}), 404
 
-    game.reveal_cell(row, col)  # Implement this in Game model
+    game.reveal_cell(row, col)  
     db.session.commit()
 
     return jsonify({
@@ -77,9 +72,7 @@ def reveal_cell(game_id):
     })
 
 
-# -----------------------
-# Route: Flag or unflag a cell
-# -----------------------
+
 @bp.route('/flag/<int:game_id>', methods=['POST'])
 def flag_cell(game_id):
     data = request.get_json()
