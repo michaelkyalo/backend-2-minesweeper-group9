@@ -1,21 +1,31 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
-# Initialize the database object
-db = SQLAlchemy()
+from .models import db
+from .routes import auth_bp, game_bp
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object('config.Config')
 
-    # Initialize database and migration
     db.init_app(app)
     Migrate(app, db)
 
-    # Import and register blueprints
-    from .routes import auth_bp, game_bp
     app.register_blueprint(auth_bp)
     app.register_blueprint(game_bp)
 
-    return app
+    # ✅ Root route (add this INSIDE create_app)
+    @app.route('/')
+    def index():
+        return {
+            "message": "Welcome to the Minesweeper API!",
+            "available_endpoints": [
+                "/signup",
+                "/login",
+                "/api/games/new",
+                "/api/games",
+                "/api/games/reveal/<game_id>",
+                "/api/games/flag/<game_id>"
+            ]
+        }
+
+    return app  # ✅ Keep this as the last line
