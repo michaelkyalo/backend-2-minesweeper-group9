@@ -33,4 +33,3 @@ class Game(db.Model):
             "status": self.status,
             "created_at": self.created_at.isoformat()
         }
-
