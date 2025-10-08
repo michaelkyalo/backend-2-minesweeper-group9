@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import MineSweeper from "./components/minesweeper.jsx"
+import MineSweeper from "./components/minesweeper.js"
 
 function App() {
 
