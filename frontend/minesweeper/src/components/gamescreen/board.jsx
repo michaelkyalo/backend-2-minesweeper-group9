@@ -1,6 +1,6 @@
 import React from 'react';
 import Cell from './cell';
-
+import { createGame, revealCell } from "../api/gameApi";
 const Board = ({ grid, handleCellClick }) => {
   return (
     <div className="board">
